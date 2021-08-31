@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,13 +28,15 @@ public class PiezaBD {
     public void crearPieza(Pieza pieza) {
         try {
 
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO pieza (tipo_pieza, costo, disponible) VALUES (?,?,?);");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO pieza (tipo_pieza, costo, disponible) VALUES (?,?,?);");
             statement.setString(1, pieza.getTipoPieza());
             statement.setDouble(2, pieza.getCosto());
             statement.setBoolean(3, pieza.isDisponible());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -44,13 +48,15 @@ public class PiezaBD {
     public List<Pieza> getPiezas() {
         List<Pieza> piezas = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM pieza;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM pieza;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(instanciarDeResultSet(resultado));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return piezas;
     }

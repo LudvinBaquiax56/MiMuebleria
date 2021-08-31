@@ -1,8 +1,8 @@
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<%-- 
+    Document   : FooterGeneral
+    Created on : 28/08/2021, 23:25:44
+    Author     : baquiax
+--%>
 <div class="container">
     <div class="row" style="margin-top: 20px;">
         <div class="footer-copyright text-center py-3">
@@ -13,8 +13,6 @@ and open the template in the editor.
     </div>
 </div>
 <!-- JavaScript Bootstrap -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 crossorigin="anonymous"></script>

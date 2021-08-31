@@ -13,10 +13,8 @@ import Modelos.Objetos.Entidades.Entidad;
  */
 public class TipoPieza extends Entidad {
 
-    private String descripcion;
-
     /**
-     *
+     * Constructor por defecto
      */
     public TipoPieza() {
     }
@@ -24,25 +22,9 @@ public class TipoPieza extends Entidad {
     /**
      *
      * @param nombre
-     * @param descripcion
      */
-    public TipoPieza(String nombre, String descripcion) {
+    public TipoPieza(String nombre) {
         super(nombre);
-        this.descripcion = descripcion;
-    }
-
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
 }

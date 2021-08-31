@@ -1,3 +1,8 @@
+<%-- 
+    Document   : headerGeneral
+    Created on : 28/08/2021, 23:28:01
+    Author     : baquiax
+--%>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,8 +12,11 @@
 
     <title>Mi muebleria</title>
     <link rel=StyleSheet href="CSS/style.css" type="text/css" media=screen>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!<!-- Iconos -->
+    <script src="https://kit.fontawesome.com/9d6694def7.js" crossorigin="anonymous"></script>
 </head>
+

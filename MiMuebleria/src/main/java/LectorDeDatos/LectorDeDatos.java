@@ -5,8 +5,11 @@
  */
 package LectorDeDatos;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import LectorDeDatos.Controladores.*;
+import Modelos.BaseDeDatos.Utilidades;
+import Modelos.Objetos.*;
+import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -14,11 +17,50 @@ import java.io.IOException;
  */
 public class LectorDeDatos {
 
+    private ControladorUsuarios controladorUsuarios;
+    private ControladorClientes controladorClietes;
+    private ControladorModeloMuebles controladorModelosMuebles;
+    private ControladorPiezas controladorPiezas;
+    private ControladorEnsamblePieza controladorRecetas;
+    private ControladorEnsamblarMueble controladorMuebles;
+    private List<String> erroresFormato;
+    private List<String> erroresLogicosRecetas;
+    private List<String> erroresLogicosEnsamebles;
+    private int contador;
+
     public LectorDeDatos() {
+        this.erroresFormato = new ArrayList<>();
+        this.erroresLogicosRecetas = new ArrayList<>();
+        this.erroresLogicosEnsamebles = new ArrayList<>();
+
+        this.controladorUsuarios = new ControladorUsuarios();
+        this.controladorClietes = new ControladorClientes();
+        this.controladorPiezas = new ControladorPiezas();
+        this.controladorModelosMuebles = new ControladorModeloMuebles();
+        this.controladorRecetas = new ControladorEnsamblePieza();
+        this.controladorMuebles = new ControladorEnsamblarMueble();
+    }
+
+    public void insertarDatos() {
+        controladorUsuarios.insertarUsuarios();
+        controladorClietes.insertarClientes();
+
+        controladorPiezas.insertarTipoPiezas();
+
+        controladorModelosMuebles.insertarModelosMuebles();
+
+        this.erroresLogicosRecetas = controladorRecetas.validarEnsambles(
+                controladorPiezas, controladorModelosMuebles);
+        
+        this.erroresLogicosEnsamebles = controladorMuebles.ensambraMuebles(
+                controladorRecetas,controladorModelosMuebles, controladorUsuarios, controladorPiezas);
+        
+        controladorPiezas.insertarPiezas();
 
     }
 
     public void leerArchivo(BufferedReader miBuffer) {
+        contador = 1;
         try {
             String linea = "";
             String datos = "";
@@ -33,9 +75,8 @@ public class LectorDeDatos {
                 ejecutarLinea(aux[i]);
             }
         } catch (IOException e) {
-            
-        }
 
+        }
     }
 
     /**
@@ -44,143 +85,39 @@ public class LectorDeDatos {
      * @param linea
      */
     private void ejecutarLinea(String linea) {
-        Instruccion accion = seleccionaraAccion(linea);
-        boolean error = false;
+        Instruccion accion = UtilidadesLector.seleccionaraAccion(linea);
+        boolean error = true;
         switch (accion) {
             case USUARIO:
-                System.out.println("user");
-                error = agregarUsuario(linea);
+                error = controladorUsuarios.agregarUsuario(linea);
                 break;
             case PIEZA:
-                System.out.println("pieza");
-                error = agregarPieza(linea);
+                error = controladorPiezas.agregarPieza(linea);
                 break;
             case MUEBLE:
-                System.out.println("mueble");
-                error = agregarMueble(linea);
+                error = controladorModelosMuebles.agregarMueble(linea);
                 break;
             case ENSAMBLE_PIEZAS:
-                System.out.println("ensamble pieza");
                 error = agregarEnsamblePiezas(linea);
                 break;
             case ENSAMBLAR_MUEBLE:
-                System.out.println("ensamblar mueble");
                 error = agregarEnsamblarMueble(linea);
                 break;
             case CLIENTE:
-                System.out.println("cliente");
-                error = agregarCliente(linea);
+                error = controladorClietes.agregarCliente(linea);
                 break;
             case ERROR:
-                System.out.println("error");
-                System.out.println(linea);
+                linea = contador + ". " + linea;
+                this.erroresFormato.add(linea);
                 break;
             default:
                 throw new AssertionError();
         }
-    }
-
-    /**
-     * Valida si en una linea viene una instruccion valida al inicio
-     *
-     * @param linea
-     * @return retorna la instruccion que viene al inicio de una linea
-     */
-    public Instruccion seleccionaraAccion(String linea) {
-        if (linea.indexOf(Instruccion.USUARIO.toString()) == 0) {
-            return Instruccion.USUARIO;
-        } else if (linea.indexOf(Instruccion.PIEZA.toString()) == 0) {
-            return Instruccion.PIEZA;
-        } else if (linea.indexOf(Instruccion.MUEBLE.toString()) == 0) {
-            return Instruccion.MUEBLE;
-        } else if (linea.indexOf(Instruccion.ENSAMBLE_PIEZAS.toString()) == 0) {
-            return Instruccion.ENSAMBLE_PIEZAS;
-        } else if (linea.indexOf(Instruccion.ENSAMBLAR_MUEBLE.toString()) == 0) {
-            return Instruccion.ENSAMBLAR_MUEBLE;
-        } else if (linea.indexOf(Instruccion.CLIENTE.toString()) == 0) {
-            return Instruccion.CLIENTE;
-        } else {
-            return Instruccion.ERROR;
+        if (error == false) {
+            linea = contador + ". " + linea;
+            this.erroresFormato.add(linea);
         }
-    }
-
-    /**
-     *
-     * @param linea
-     * @param indicacion
-     * @return
-     */
-    public String quitarIndicacion(String linea, String indicacion) {
-        String aux = "";
-        for (int i = indicacion.length(); i < linea.length(); i++) {
-            aux = aux + linea.charAt(i);
-        }
-        return aux;
-    }
-
-    /**
-     * Agrega un usuario
-     *
-     * @param linea
-     * @return
-     */
-    private boolean agregarUsuario(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.USUARIO.toString());
-        datos = quitarSignos(datos);
-        String[] datosSeparados = datos.split(",");
-        if (datosSeparados.length == 3) {
-            try {
-                String nombre = quitarSignos(datosSeparados[0]);
-                String password = quitarSignos(datosSeparados[1]);
-                int tipo = Integer.valueOf(datosSeparados[2]);
-                System.out.println(nombre + "-" + password + "-" + tipo);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    /**
-     * Agrega una pieza
-     *
-     * @param linea
-     * @return
-     */
-    private boolean agregarPieza(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.PIEZA.toString());
-        datos = quitarSignos(datos);
-
-        String[] datosSeparados = datos.split(",");
-
-        String tipo = quitarSignos(datosSeparados[0]);
-        double costo = Double.valueOf(datosSeparados[1]);
-
-        System.out.println(tipo + "-" + costo);
-        return true;
-    }
-
-    /**
-     * Agrega un mueble
-     *
-     * @param linea
-     * @return
-     */
-    private boolean agregarMueble(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.MUEBLE.toString());
-        datos = quitarSignos(datos);
-
-        String[] datosSeparados = datos.split(",");
-
-        String nombre = quitarSignos(datosSeparados[0]);
-        double costo = Double.valueOf(datosSeparados[1]);
-
-        System.out.println(nombre + "-" + costo);
-        return true;
+        contador++;
     }
 
     /**
@@ -190,17 +127,25 @@ public class LectorDeDatos {
      * @return
      */
     private boolean agregarEnsamblePiezas(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.ENSAMBLE_PIEZAS.toString());
-        datos = quitarSignos(datos);
+        try {
+            String datos = UtilidadesLector.quitarIndicacion(linea, Instruccion.ENSAMBLE_PIEZAS.toString());
+            datos = UtilidadesLector.quitarSignos(datos);
 
-        String[] datosSeparados = datos.split(",");
-
-        String modeloMueble = quitarSignos(datosSeparados[0]);
-        String modeloPieza = quitarSignos(datosSeparados[1]);
-        int cantidad = Integer.valueOf(datosSeparados[2]);
-
-        System.out.println(modeloMueble + "-" + modeloPieza + "-" + cantidad);
-        return true;
+            String[] datosSeparados = datos.split(",");
+            if (UtilidadesLector.validarTamanio(datosSeparados, 3)) {
+                String modeloMueble = UtilidadesLector.quitarSignos(datosSeparados[0]);
+                String modeloPieza = UtilidadesLector.quitarSignos(datosSeparados[1]);
+                int cantidad = Integer.valueOf(datosSeparados[2]);
+                controladorRecetas.getRecetas().add(new PrescripcionMueble(modeloPieza,
+                        modeloMueble, cantidad));
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -210,73 +155,31 @@ public class LectorDeDatos {
      * @return
      */
     private boolean agregarEnsamblarMueble(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.ENSAMBLAR_MUEBLE.toString());
-        datos = quitarSignos(datos);
+        try {
+            String datos = UtilidadesLector.quitarIndicacion(linea, Instruccion.ENSAMBLAR_MUEBLE.toString());
 
-        String[] datosSeparados = datos.split(",");
+            if (UtilidadesLector.validarParentesis(datos)) {
+                datos = UtilidadesLector.quitarSignos(datos);
+                String[] datosSeparados = datos.split(",");
+                if (UtilidadesLector.validarTamanio(datosSeparados, 3)) {
+                    String modeloMueble = UtilidadesLector.quitarSignos(datosSeparados[0]);
+                    String usuario = datosSeparados[1];
+                    String fecha = UtilidadesLector.quitarSignos(datosSeparados[2]);
 
-        String modeloMueble = quitarSignos(datosSeparados[0]);
-        //consultar
-        String usuario = datosSeparados[1];
-        String fecha = quitarSignos(datosSeparados[2]);
+                    controladorMuebles.getMuebles().add(new Mueble(modeloMueble,
+                            usuario, Utilidades.convertirFecha(fecha)));
+                    return true;
+                } else {
+                    return false;
+                }
 
-        System.out.println(modeloMueble + " " + usuario + " " + fecha);
-        return true;
-    }
-
-    /**
-     * Agrega un cliente a la vase de datos
-     *
-     * @param linea
-     * @return
-     */
-    private boolean agregarCliente(String linea) {
-        String datos = quitarIndicacion(linea, Instruccion.CLIENTE.toString());
-        datos = quitarSignos(datos);
-
-        String[] datosSeparados = datos.split(",");
-        if (datosSeparados.length == 3) {
-            String nombre = quitarSignos(datosSeparados[0]);
-            String NIT = quitarSignos(datosSeparados[1]);
-            String direccion = quitarSignos(datosSeparados[2]);
-
-            System.out.println(nombre + " " + NIT + " " + direccion);
-            return true;
-        } else if (datosSeparados.length == 5) {
-            String nombre = quitarSignos(datosSeparados[0]);
-            String NIT = quitarSignos(datosSeparados[1]);
-            String direccion = quitarSignos(datosSeparados[2]);
-            String municipio = quitarSignos(datosSeparados[3]);
-            String departamento = quitarSignos(datosSeparados[3]);
-
-            System.out.println(nombre + " " + NIT + " " + direccion + " " + municipio + " " + departamento);
-            return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
-    }
-
-    /**
-     * Quita el primer y el ultimo caracter de una cadena
-     *
-     * @param cadena
-     * @return retorna la cadena sin el caracter inicial y final
-     */
-    public String quitarSignos(String cadena) {
-        String aux = "";
-        for (int i = 1; i < cadena.length() - 1; i++) {
-            aux = aux + cadena.charAt(i);
-        }
-        return aux;
-    }
-
-    /**
-     * Valida si la instruccion inicia con parentesis
-     *
-     * @param linea
-     * @return
-     */
-    public boolean validarParentesis(String linea) {
-        return linea.startsWith("(") && linea.endsWith(")");
     }
 
 }

@@ -8,6 +8,8 @@ package Modelos.BaseDeDatos;
 import Modelos.Objetos.MueblesFactura;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +25,7 @@ public class MueblesFacturaBD {
     public void crearMueblesFactura(MueblesFactura mubleFactura) {
         try {
 
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO"
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO"
                     + " muebles_factura (id_factura, id_mueble) VALUES (?,?);");
             statement.setInt(1, mubleFactura.getFactura());
             statement.setInt(2, mubleFactura.getMueble());
@@ -31,6 +33,8 @@ public class MueblesFacturaBD {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MueblesFacturaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

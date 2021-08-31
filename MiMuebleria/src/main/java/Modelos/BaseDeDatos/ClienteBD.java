@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +28,7 @@ public class ClienteBD {
     public void crearCliente(Cliente cliente) {
         try {
             if (cliente.isCompleto()) {
-                PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO "
+                PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO "
                         + "cliente (NIT, nombre, direccion,municipio,departamento) VALUES(?,?,?,?,?);");
                 statement.setString(1, cliente.getNIT());
                 statement.setString(2, cliente.getNombre());
@@ -35,7 +37,7 @@ public class ClienteBD {
                 statement.setString(5, cliente.getDepartamento());
                 statement.executeUpdate();
             } else {
-                PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO "
+                PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO "
                         + "cliente (NIT, nombre, direccion) VALUES(?,?,?);");
                 statement.setString(1, cliente.getNIT());
                 statement.setString(2, cliente.getNombre());
@@ -44,12 +46,15 @@ public class ClienteBD {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 
     /**
      * Carga un cliente con el NIT especificado
      *
+     * @param NIT
      * @return Cargador hallado
      */
     public Cliente getCliente(int NIT) {
@@ -85,6 +90,13 @@ public class ClienteBD {
         return clientes;
     }
 
+    /**
+     * Carga un cliente mediante un resultSet
+     *
+     * @param resultado
+     * @return
+     * @throws SQLException
+     */
     private Cliente instanciarDeResultSet(ResultSet resultado) throws SQLException {
         return new Cliente(
                 resultado.getString("NIT"),

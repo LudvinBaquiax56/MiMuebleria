@@ -5,13 +5,14 @@
  */
 package Modelos.BaseDeDatos;
 
-
 import Modelos.Objetos.TipoPieza;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,24 +28,27 @@ public class TipoPiezaBD {
     public void crearTipoPieza(TipoPieza tipoPieza) {
         try {
 
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO tipo_pieza"
-                    + " (nombre, descripcion) VALUES (?,?);");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "INSERT INTO tipo_pieza (nombre) VALUES (?);");
             statement.setString(1, tipoPieza.getNombre());
-            statement.setString(2, tipoPieza.getDescripcion());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TipoPiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Carga un Tipo de pieza con su nombre especificado
      *
-     * @return Cargador hallado
+     * @param nombre
+     * @return
      */
     public TipoPieza getTipoPieza(String nombre) {
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM tipo_pieza WHERE nombre=?;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT * FROM tipo_pieza WHERE nombre=?;");
             statement.setString(1, nombre);
             ResultSet resultado = statement.executeQuery();
             if (resultado.next()) {
@@ -52,6 +56,8 @@ public class TipoPiezaBD {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TipoPiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -59,26 +65,28 @@ public class TipoPiezaBD {
     /**
      * Lista todos los tipos de piezas existentes
      *
-     * @return Cargadores
+     * @returns
      */
     public List<TipoPieza> getTipoPiezas() {
         List<TipoPieza> piezas = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM cliente;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT * FROM tipo_pieza;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(instanciarDeResultSet(resultado));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TipoPiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return piezas;
     }
 
     private TipoPieza instanciarDeResultSet(ResultSet resultado) throws SQLException {
         return new TipoPieza(
-                resultado.getString("nombre"),
-                resultado.getString("descripcion")
+                resultado.getString("nombre")
         );
     }
 

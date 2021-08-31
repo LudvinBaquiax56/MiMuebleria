@@ -27,6 +27,20 @@ public class Mueble {
     }
 
     /**
+     * Constructor basico, este constructor funciona para luego ser validado si
+     * el mueble es posible de ensamblar
+     *
+     * @param modeloMueble
+     * @param ensamblador
+     * @param fecha
+     */
+    public Mueble(String modeloMueble, String ensamblador, LocalDate fecha) {
+        this.modeloMueble = modeloMueble;
+        this.ensamblador = ensamblador;
+        this.fecha = fecha;
+    }
+
+    /**
      * Constructor con atributo devolucion falso
      *
      * @param modeloMueble

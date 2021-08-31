@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +27,7 @@ public class MuebleBD {
      */
     public void crearMueble(Mueble mueble) {
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO mueble "
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO mueble "
                     + "(modelo_mueble, costo, fecha, ensamblador, devolucion) VALUES (?,?,?,?,?)");
             statement.setString(1, mueble.getModeloMueble());
             statement.setString(2, String.valueOf(mueble.getCosto()));
@@ -36,6 +38,8 @@ public class MuebleBD {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MuebleBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -47,13 +51,15 @@ public class MuebleBD {
     public List<Mueble> getModelosMuebles() {
         List<Mueble> muebles = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM modelo_mueble;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM modelo_mueble;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 muebles.add(instanciarDeResultSet(resultado));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MuebleBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return muebles;
     }

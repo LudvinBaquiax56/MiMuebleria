@@ -26,14 +26,16 @@ public class UsuarioBD {
     public void crearUsuario(Usuario usuario) {
         try {
 
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO usuario "
-                    + "(nombre, password, tipo) VALUES(?,?,?);");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "INSERT INTO usuario (nombre, password, tipo) VALUES(?,?,?);");
             statement.setString(1, usuario.getNombre());
             statement.setString(2, usuario.getPassword());
             statement.setInt(3, usuario.getTipo());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -45,13 +47,16 @@ public class UsuarioBD {
      */
     public Usuario getCliente(String nombre) {
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM usuario WHERE nombre=?;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT * FROM usuario WHERE nombre=?;");
             statement.setString(1, nombre);
             ResultSet resultado = statement.executeQuery();
             if (resultado.next()) {
                 return instanciarDeResultSet(resultado);
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -65,12 +70,15 @@ public class UsuarioBD {
     public List<Usuario> getClientes() {
         List<Usuario> usuarios = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM usuario;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT * FROM usuario;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 usuarios.add(instanciarDeResultSet(resultado));
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return usuarios;

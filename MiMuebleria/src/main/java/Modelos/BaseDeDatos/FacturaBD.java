@@ -9,6 +9,8 @@ import Modelos.Objetos.Factura;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +25,7 @@ public class FacturaBD {
      */
     public void crearFactura(Factura factura) {
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("INSERT INTO factura "
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO factura "
                     + "(NIT, nombre_vendedor,fecha,total) VALUES(?,?,?,?);");
             statement.setString(1, factura.getNIT());
             statement.setString(2, factura.getVendedor());
@@ -33,6 +35,8 @@ public class FacturaBD {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FacturaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
