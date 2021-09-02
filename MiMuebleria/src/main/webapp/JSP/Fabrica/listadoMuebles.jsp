@@ -28,8 +28,6 @@
                                 <th scope="col">Fecha Ensamble</th>
                                 <th scope="col">Ensamblador</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,17 +44,6 @@
                                     <c:if test="${mueble.devolucion == true}">
                                         <td>Devuelto</td>
                                     </c:if>
-                                    <td><a href="${pageContext.request.contextPath}/ModificarMueble?accion=modificar&id=${mueble.id}" 
-                                           class="btn btn-lg btn-block btn-outline-info">
-                                            Editar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/ModificarMueble?accion=eliminar&id=${mueble.id}" 
-                                           class="btn btn-lg btn-block btn-outline-warning">
-                                            Eliminar
-                                        </a>
-                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

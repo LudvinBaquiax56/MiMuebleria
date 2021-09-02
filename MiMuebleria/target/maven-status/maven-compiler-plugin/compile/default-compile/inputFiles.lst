@@ -22,6 +22,7 @@
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/BaseDeDatos/TipoPiezaBD.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/BaseDeDatos/PiezaBD.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/Objetos/PrescripcionMueble.java
+/home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Administracion/SuspenderUsuario.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/BaseDeDatos/MueblesFacturaBD.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/LectorDeDatos/Controladores/ControladorClientes.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/CargaDeDatos/CargaDeDatos.java
@@ -31,9 +32,11 @@
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/LectorDeDatos/Controladores/ControladorPiezas.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Fabrica/ModificarPieza.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/LectorDeDatos/Instruccion.java
+/home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Administracion/CrearUsuario.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/LectorDeDatos/Controladores/ControladorEnsamblarMueble.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/Objetos/Cliente.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/BaseDeDatos/ClienteBD.java
+/home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Administracion/VerUsuarios.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/BaseDeDatos/UsuarioBD.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/LectorDeDatos/Controladores/ControladorEnsamblePieza.java
 /home/baquiax/Documentos/Programas de Curso/IPC2/Proyectos/MiMuebleria/MiMuebleria/src/main/java/Modelos/Objetos/TipoPieza.java

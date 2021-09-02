@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Fabrica;
+package Administracion;
 
-import Modelos.BaseDeDatos.MuebleBD;
-import Modelos.Objetos.Mueble;
+import Modelos.BaseDeDatos.UsuarioBD;
+import Modelos.Objetos.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author baquiax
  */
-@WebServlet(name = "VerMuebles", urlPatterns = {"/VerMuebles"})
-public class VerMuebles extends HttpServlet {
+@WebServlet(name = "VerUsuarios", urlPatterns = {"/VerUsuarios"})
+public class VerUsuarios extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,15 +34,15 @@ public class VerMuebles extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MuebleBD mubleBD = new MuebleBD();
-        List<Mueble> muebles = mubleBD.getMuebles();
-        if (muebles.isEmpty()) {
-            request.getSession().setAttribute("hayMuebles", false);
+        UsuarioBD usuarioBD = new UsuarioBD();
+        List<Usuario> usuarios = usuarioBD.getUsuarios();
+        if (usuarios.isEmpty()) {
+            request.getSession().setAttribute("hayUsuarios", false);
         } else {
-            request.getSession().setAttribute("hayMuebles", true);
+            request.getSession().setAttribute("hayUsuarios", true);
         }
-        request.getSession().setAttribute("muebles", muebles);
-        response.sendRedirect("JSP/Fabrica/listadoMuebles.jsp");
+        request.getSession().setAttribute("usuarios", usuarios);
+        response.sendRedirect("JSP/Administracion/listadoUsuarios.jsp");
     }
 
     /**
@@ -56,16 +56,7 @@ public class VerMuebles extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    }
 
 }

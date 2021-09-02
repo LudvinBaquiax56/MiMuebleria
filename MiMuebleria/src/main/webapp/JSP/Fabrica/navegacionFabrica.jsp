@@ -45,7 +45,6 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Ensamblar Mueble</a></li>
-                        <li><a class="dropdown-item" href="#">Registrar Mueble</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMuebles">Muebles Creados</a></li>
                     </ul>

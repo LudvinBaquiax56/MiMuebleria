@@ -86,6 +86,27 @@ public class UsuarioBD {
     }
 
     /**
+     * Modifica un Usuarios
+     *
+     * @param usuario
+     */
+    public void modificarPieza(Usuario usuario) {
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "UPDATE usuario SET password=?, tipo=?, estado=? WHERE nombre=?;");
+            statement.setString(1, usuario.getPassword());
+            statement.setDouble(2, usuario.getTipo());
+            statement.setBoolean(3, usuario.isEstado());
+            statement.setString(4, usuario.getNombre());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * Retorna un Usuario de un resultSet
      *
      * @param resultado

@@ -13,6 +13,7 @@ Modelos/Objetos/ModeloMueble.class
 LectorDeDatos/Instruccion.class
 Modelos/BaseDeDatos/PiezaBD.class
 CargaDeDatos/CargaDeDatos.class
+Administracion/VerUsuarios.class
 Modelos/Objetos/Factura.class
 Fabrica/VerPiezas.class
 Modelos/BaseDeDatos/PrescripcionMuebleBD.class
@@ -31,7 +32,9 @@ Modelos/Objetos/MueblesFactura.class
 Modelos/Objetos/Entidades/EntidadPrecio.class
 LectorDeDatos/LectorDeDatos.class
 Modelos/BaseDeDatos/FacturaBD.class
+Administracion/CrearUsuario.class
 LectorDeDatos/Controladores/ControladorEnsamblePieza.class
+Administracion/SuspenderUsuario.class
 LectorDeDatos/Controladores/ControladorEnsamblarMueble.class
 Modelos/BaseDeDatos/UsuarioBD.class
 Modelos/Objetos/Cliente.class

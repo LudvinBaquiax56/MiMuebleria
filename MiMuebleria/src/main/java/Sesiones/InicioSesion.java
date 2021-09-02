@@ -67,7 +67,7 @@ public class InicioSesion extends HttpServlet {
                 }
             } else {
                 request.setAttribute("Error", true);
-                request.setAttribute("mensaje", "No puedes acceder al sistema incorrecto");
+                request.setAttribute("mensaje", "No puedes acceder al sistema");
 
                 RequestDispatcher despachar = request.getRequestDispatcher("JSP/inicioSesion.jsp");
                 despachar.forward(request, response);
