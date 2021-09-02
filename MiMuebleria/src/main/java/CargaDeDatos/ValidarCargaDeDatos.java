@@ -34,7 +34,7 @@ public class ValidarCargaDeDatos extends HttpServlet {
             throws ServletException, IOException {
         UsuarioBD usuarios = new UsuarioBD();
         
-        if (usuarios.getClientes().isEmpty()) {
+        if (usuarios.getUsuarios().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/JSP/cargaDeDatos.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/JSP/inicioSesion.jsp");

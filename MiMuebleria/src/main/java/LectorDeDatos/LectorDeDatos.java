@@ -48,15 +48,14 @@ public class LectorDeDatos {
         controladorPiezas.insertarTipoPiezas();
 
         controladorModelosMuebles.insertarModelosMuebles();
-
+        
         this.erroresLogicosRecetas = controladorRecetas.validarEnsambles(
                 controladorPiezas, controladorModelosMuebles);
-        
-        this.erroresLogicosEnsamebles = controladorMuebles.ensambraMuebles(
-                controladorRecetas,controladorModelosMuebles, controladorUsuarios, controladorPiezas);
-        
-        controladorPiezas.insertarPiezas();
 
+        this.erroresLogicosEnsamebles = controladorMuebles.ensambraMuebles(
+                controladorRecetas, controladorModelosMuebles, controladorUsuarios, controladorPiezas);
+
+        controladorPiezas.insertarPiezas();
     }
 
     public void leerArchivo(BufferedReader miBuffer) {
@@ -108,14 +107,14 @@ public class LectorDeDatos {
                 break;
             case ERROR:
                 linea = contador + ". " + linea;
-                this.erroresFormato.add(linea);
+                this.getErroresFormato().add(linea);
                 break;
             default:
                 throw new AssertionError();
         }
         if (error == false) {
             linea = contador + ". " + linea;
-            this.erroresFormato.add(linea);
+            this.getErroresFormato().add(linea);
         }
         contador++;
     }
@@ -180,6 +179,45 @@ public class LectorDeDatos {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String informe() {
+        String informe = "<table class=\"table\">";
+        informe = informe + "<thead><tr><th scope=\"col\">Datos Ingresados</th></tr></thead>";
+        informe = informe + "<tbody>";
+        informe = informe + "<tr><th>Usuarios: " + controladorUsuarios.getUsaurios().size() + "</th></tr>";
+        informe = informe + "<tr><th>Clientes: " + controladorClietes.getClientes().size() + "</th></tr>";
+        informe = informe + "<tr><th>Muebles: " + controladorModelosMuebles.getModelosMuebles().size() + "</th></tr>";
+        informe = informe + "<tr><th>Piezas: " + controladorPiezas.getPiezas().size() + "</th></tr>";
+        informe = informe + "<tr><th>Muebles Ensamblados: " + controladorMuebles.getContadorMueblesEnsamblados() + "</th></tr>";
+        informe = informe + "<tr><th>Ensamble Piezas: " + controladorPiezas.getPiezas().size() + "</th></tr>";
+        informe = informe + "</tbody></table>";
+        return informe;
+    }
+
+    /**
+     * @return the erroresFormato
+     */
+    public List<String> getErroresFormato() {
+        return erroresFormato;
+    }
+
+    /**
+     * @return the erroresLogicosRecetas
+     */
+    public List<String> getErroresLogicosRecetas() {
+        return erroresLogicosRecetas;
+    }
+
+    /**
+     * @return the erroresLogicosEnsamebles
+     */
+    public List<String> getErroresLogicosEnsamebles() {
+        return erroresLogicosEnsamebles;
     }
 
 }

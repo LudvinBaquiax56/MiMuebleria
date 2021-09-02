@@ -17,6 +17,7 @@ public class ControladorEnsamblarMueble {
 
     private List<Mueble> muebles;
     private MuebleBD muebleBD;
+    private int contadorMueblesEnsamblados;
 
     /**
      * Constructor por defecto, crea una lista de muebles
@@ -24,6 +25,7 @@ public class ControladorEnsamblarMueble {
     public ControladorEnsamblarMueble() {
         this.muebles = new ArrayList<>();
         this.muebleBD = new MuebleBD();
+        contadorMueblesEnsamblados = 0;
     }
 
     /**
@@ -73,27 +75,26 @@ public class ControladorEnsamblarMueble {
                 } else {
                     List<Pieza> piezasMueble = new ArrayList<>();
                     boolean posible = true;
-                    for (int j = 0; j < recetaMueble.size() && posible == true; j++) {
-                        recetaMueble.get(i).getTipoPieza();
-                        recetaMueble.get(i).getCantidad();
-                        List<Pieza> piezas = controladorPiezas.piezasMueble(recetaMueble.get(i).getTipoPieza(),
-                                recetaMueble.get(i).getCantidad());
+                    int contador = 0;
+                    while (contador < recetaMueble.size() && posible) {
+                        List<Pieza> piezas = controladorPiezas.piezasMueble(recetaMueble.get(contador).getTipoPieza(),
+                                recetaMueble.get(contador).getCantidad());
                         if (piezas.isEmpty()) {
                             String error = muebles.get(i).getModeloMueble() + ", "
                                     + muebles.get(i).getEnsamblador() + ", " + muebles.get(i).getFecha();
                             errores.add(error);
-                            System.out.println("no hay piezas");
                             posible = false;
                         } else {
                             agregarPiezas(piezasMueble, piezas);
                         }
+                        contador++;
                     }
                     if (posible == true) {
                         double costo = calcularCostoMueble(piezasMueble);
                         controladorPiezas.piezasUtilizadas(piezasMueble);
-                        System.out.println("costo");
                         muebles.get(i).setCosto(costo);
                         muebleBD.crearMueble(muebles.get(i));
+                        contadorMueblesEnsamblados++;
                     }
                 }
             } else {
@@ -140,9 +141,16 @@ public class ControladorEnsamblarMueble {
     private double calcularCostoMueble(List<Pieza> piezasMueble) {
         double costo = 0;
         for (int i = 0; i < piezasMueble.size(); i++) {
-            costo = piezasMueble.get(i).getCosto();
+            costo = costo + piezasMueble.get(i).getCosto();
         }
         return costo;
+    }
+
+    /**
+     * @return the contadorMueblesEnsamblados
+     */
+    public int getContadorMueblesEnsamblados() {
+        return contadorMueblesEnsamblados;
     }
 
 }

@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
  * @author baquiax
  */
 public class Utilidades {
+
     /**
      * Convertie una fecha a un LocalDate
      *
@@ -39,11 +40,22 @@ public class Utilidades {
     }
 
     /**
-     *Conversion de un local Date a Date sql
+     * Conversion de un local Date a Date sql
+     *
      * @param fecha
      * @return
      */
     public static Date LocalDateToDate(LocalDate fecha) {
         return Date.valueOf(fecha);
+    }
+
+    /**
+     * Conversion de un Date a LocalDate
+     *
+     * @param fecha
+     * @return
+     */
+    public static LocalDate DateToLocalDate(Date fecha) {
+        return LocalDate.parse(fecha.toString());
     }
 }

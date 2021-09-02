@@ -90,7 +90,6 @@ public class ControladorPiezas {
                         tipoPiezas.add(new TipoPieza(tipo));
                     }
                     piezas.add(new Pieza(tipo, costo));
-                    System.out.println(tipo + "-" + costo);
                     return true;
                 } else {
                     return false;

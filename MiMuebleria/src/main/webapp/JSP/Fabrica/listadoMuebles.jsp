@@ -1,52 +1,58 @@
 <%-- 
-    Document   : listadoPiezas
-    Created on : 29/08/2021, 00:34:50
+    Document   : listadoMuebles
+    Created on : 31/08/2021, 22:44:12
     Author     : baquiax
 --%>
 
-<%@page import="Modelos.Objetos.Pieza"%>
+<%@page import="Modelos.Objetos.Mueble"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!-- para dar formato el texto-->
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- SELECCIONAMOS LA LOCALIDAD -->
-<fmt:setLocale value="es_GT"/>
 <!DOCTYPE html>
 <html>
     <jsp:include page="../HeadesrAndFooters/headerGeneral.jsp"></jsp:include>
         <body>
         <% if ((int) request.getSession().getAttribute("tipo") == 1) {%>
         <jsp:include page="navegacionFabrica.jsp"></jsp:include>
-            <div class="container col-md-8">
+            <div class="container">
                 <center>            
-                    <h1>Piezas</h1>
-                <%List<Pieza> piezas = (List<Pieza>) request.getSession().getAttribute("piezas");%>
-                <c:if test="${hayPiezas != null && hayPiezas == true}">
+                    <h1>Muebles</h1>
+                <%List<Mueble> piezas = (List<Mueble>) request.getAttribute("muebles");%>
+                <c:if test="${hayMuebles != null && hayMuebles == true}">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Pieza</th>
+                                <th scope="col">Mueble</th>
                                 <th scope="col">Costo</th>
+                                <th scope="col">Fecha Ensamble</th>
+                                <th scope="col">Ensamblador</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
+                                <th scope="col">eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${piezas}" var="pieza">
+                            <c:forEach items="${muebles}" var="mueble">
                                 <tr>
-                                    <td scope="row">${pieza.id}</td>
-                                    <td>${pieza.tipoPieza}</td>
-                                    <td><fmt:formatNumber value="${pieza.costo}" type="currency"/></td>
-                                    
-                                    <td><a href="${pageContext.request.contextPath}/ModificarPieza?accion=modificar&id=${pieza.id}" 
+                                    <td scope="row">${mueble.id}</td>
+                                    <td>${mueble.modeloMueble}</td>
+                                    <td>${mueble.costo}</td>
+                                    <td>${mueble.fecha}</td>
+                                    <td>${mueble.ensamblador}</td>
+                                    <c:if test="${mueble.devolucion == false}">
+                                        <td>En venta</td>
+                                    </c:if>
+                                    <c:if test="${mueble.devolucion == true}">
+                                        <td>Devuelto</td>
+                                    </c:if>
+                                    <td><a href="${pageContext.request.contextPath}/ModificarMueble?accion=modificar&id=${mueble.id}" 
                                            class="btn btn-lg btn-block btn-outline-info">
                                             Editar
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/ModificarPieza?accion=eliminar&id=${pieza.id}" 
+                                        <a href="${pageContext.request.contextPath}/ModificarMueble?accion=eliminar&id=${mueble.id}" 
                                            class="btn btn-lg btn-block btn-outline-warning">
                                             Eliminar
                                         </a>

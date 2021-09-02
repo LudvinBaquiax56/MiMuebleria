@@ -10,13 +10,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,17 +46,13 @@ public class CargaDeDatos extends HttpServlet {
         LectorDeDatos lector = new LectorDeDatos();
         lector.leerArchivo(miBuffer);
         lector.insertarDatos();
-        response.sendRedirect(request.getContextPath() + "/ValidarCargaDeDatos");
+        HttpSession sesion = request.getSession();
+        
+        sesion.setAttribute("Informe", lector.informe());
+        sesion.setAttribute("erroresFormato", lector.getErroresFormato());
+        sesion.setAttribute("erroresRecetas", lector.getErroresLogicosRecetas());
+        sesion.setAttribute("erroresEnsambles", lector.getErroresLogicosEnsamebles());
+        response.sendRedirect(request.getContextPath() + "/JSP/InformeCargaDeDatos.jsp");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

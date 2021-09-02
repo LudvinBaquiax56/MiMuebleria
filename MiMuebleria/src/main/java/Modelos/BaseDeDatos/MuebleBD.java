@@ -44,14 +44,14 @@ public class MuebleBD {
     }
 
     /**
-     * Lista todos los clientes existentes
+     * Lista todos los muebles existentes
      *
      * @return Cargadores
      */
-    public List<Mueble> getModelosMuebles() {
+    public List<Mueble> getMuebles() {
         List<Mueble> muebles = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM modelo_mueble;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM mueble;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 muebles.add(instanciarDeResultSet(resultado));
@@ -76,7 +76,7 @@ public class MuebleBD {
                 Integer.valueOf(resultado.getString("id")),
                 resultado.getString("modelo_mueble"),
                 Double.parseDouble(resultado.getString("costo")),
-                Utilidades.convertirFecha(resultado.getString("fecha")),
+                Utilidades.DateToLocalDate(resultado.getDate("fecha")),
                 resultado.getString("ensamblador"),
                 Boolean.parseBoolean(resultado.getString("devolucion"))
         );

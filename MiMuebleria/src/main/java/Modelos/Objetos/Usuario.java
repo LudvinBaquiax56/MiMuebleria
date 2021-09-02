@@ -15,6 +15,7 @@ public class Usuario extends Entidad {
 
     private String password;
     private int tipo;
+    private boolean estado;
 
     /**
      * Constructor por defecto de un Usuario
@@ -33,6 +34,22 @@ public class Usuario extends Entidad {
         super(nombre);
         this.password = password;
         this.tipo = tipo;
+        this.estado = true;
+    }
+
+    /**
+     * Constructor para un usaurio
+     *
+     * @param nombre
+     * @param password
+     * @param tipo
+     * @param estado
+     */
+    public Usuario(String nombre, String password, int tipo, boolean estado) {
+        super(nombre);
+        this.password = password;
+        this.tipo = tipo;
+        this.estado = estado;
     }
 
     /**
@@ -61,6 +78,20 @@ public class Usuario extends Entidad {
      */
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean isEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
 }

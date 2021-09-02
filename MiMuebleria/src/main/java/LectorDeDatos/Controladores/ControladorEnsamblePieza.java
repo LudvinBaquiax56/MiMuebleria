@@ -65,10 +65,10 @@ public class ControladorEnsamblePieza {
                     && controladorMuebles.validarMueble(recetas.get(i).getModeloMueble())) {
                 prescipcionMuebleBD.crearPrescripcionMueble(recetas.get(i));
             } else {
-                recetas.remove(i);
                 String error = recetas.get(i).getModeloMueble() + ", "
                         + recetas.get(i).getTipoPieza() + ", " + recetas.get(i).getCantidad();
                 errores.add(error);
+                recetas.remove(i);
             }
         }
 
@@ -83,6 +83,7 @@ public class ControladorEnsamblePieza {
      */
     public List<PrescripcionMueble> recetaMueble(String Modelomueble) {
         List<PrescripcionMueble> recetaMueble = new ArrayList<>();
+        System.out.println(recetas.size());
         for (int i = 0; i < recetas.size(); i++) {
             if (recetas.get(i).getModeloMueble().equalsIgnoreCase(Modelomueble)) {
                 recetaMueble.add(recetas.get(i));
