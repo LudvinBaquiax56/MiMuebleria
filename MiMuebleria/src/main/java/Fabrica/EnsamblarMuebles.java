@@ -5,8 +5,8 @@
  */
 package Fabrica;
 
-import Modelos.BaseDeDatos.MuebleBD;
-import Modelos.Objetos.Mueble;
+import Modelos.BaseDeDatos.ModeloMuebleBD;
+import Modelos.Objetos.ModeloMueble;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author baquiax
  */
-@WebServlet(name = "VerMuebles", urlPatterns = {"/VerMuebles"})
-public class VerMuebles extends HttpServlet {
+@WebServlet(name = "EnsamblarMuebles", urlPatterns = {"/EnsamblarMuebles"})
+public class EnsamblarMuebles extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -33,15 +33,15 @@ public class VerMuebles extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MuebleBD mubleBD = new MuebleBD();
-        List<Mueble> muebles = mubleBD.getMuebles();
-        if (muebles.isEmpty()) {
-            request.getSession().setAttribute("hayMuebles", false);
+        ModeloMuebleBD modeloMuebleBD = new ModeloMuebleBD();
+        List<ModeloMueble> modelosMueble = modeloMuebleBD.getModelosMuebles();
+         if (modelosMueble.isEmpty()) {
+            request.getSession().setAttribute("hayModelos", false);
         } else {
-            request.getSession().setAttribute("hayMuebles", true);
+            request.getSession().setAttribute("hayModelos", true);
         }
-        request.getSession().setAttribute("muebles", muebles);
-        response.sendRedirect("JSP/Fabrica/listadoMuebles.jsp");
+        request.getSession().setAttribute("modelosMueble", modelosMueble);
+        response.sendRedirect("JSP/Fabrica/ensambleMueble.jsp");
     }
 
     /**
@@ -55,6 +55,7 @@ public class VerMuebles extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     /**

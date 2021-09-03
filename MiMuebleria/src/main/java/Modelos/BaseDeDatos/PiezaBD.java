@@ -32,6 +32,7 @@ public class PiezaBD {
     private static final String SQL_UPDATE = "UPDATE pieza SET tipo_pieza=?, costo=?, disponible=? WHERE id=?;";
     private static final String SQL_DELETE = "DELETE FROM pieza WHERE id = ?;";
     private static final String SQL_PIEZAS_AGOTADAS = "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre HAVING cantidad < 5;";
+    private static final String SQL_PIEZAS_RECETA = "SELECT * FROM pieza WHERE tipo_pieza=? AND disponible = true LIMIT ?;";
 
     /**
      * Crea una pieza en la base de datos
@@ -62,6 +63,31 @@ public class PiezaBD {
         List<Pieza> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_ALL_PIEZAS);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                piezas.add(instanciarDeResultSet(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return piezas;
+    }
+
+    /**
+     * Retorna un listado de piezas disponibles y necesarias para una receta
+     *
+     * @param tipoPieza
+     * @param cantidad
+     * @return
+     */
+    public List<Pieza> getPiezas(String tipoPieza, int cantidad) {
+        List<Pieza> piezas = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_PIEZAS_RECETA);
+            statement.setString(1, tipoPieza);
+            statement.setInt(2, cantidad);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(instanciarDeResultSet(resultado));

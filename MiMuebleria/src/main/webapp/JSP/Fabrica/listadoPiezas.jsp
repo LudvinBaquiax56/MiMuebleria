@@ -57,24 +57,24 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-4">
-                        <h1>Piezas por Agotarse</h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Pieza</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${piezasAgotadas}" var="pieza">
-                                    ${pieza}
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </c:if>  
+            <div class="col-md-4">
+                <h1>Piezas por Agotarse</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Pieza</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${piezasAgotadas}" var="pieza">
+                            ${pieza}
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <jsp:include page="../HeadesrAndFooters/footerGeneral.jsp"></jsp:include>
         <% } else if ((int) request.getSession().getAttribute("tipo") == 2) { %>

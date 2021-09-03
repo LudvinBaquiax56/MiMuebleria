@@ -95,6 +95,10 @@ public class ControladorEnsamblarMueble {
                         muebles.get(i).setCosto(costo);
                         muebleBD.crearMueble(muebles.get(i));
                         contadorMueblesEnsamblados++;
+                    } else {
+                        String error = muebles.get(i).getModeloMueble() + ", "
+                                + muebles.get(i).getEnsamblador() + ", " + muebles.get(i).getFecha();
+                        errores.add(error);
                     }
                 }
             } else {

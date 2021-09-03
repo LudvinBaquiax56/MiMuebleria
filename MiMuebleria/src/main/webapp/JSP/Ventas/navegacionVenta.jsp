@@ -20,7 +20,7 @@
                         <li><a class="dropdown-item" href="#">Realizar Una venta</a></li>
                         <li><a class="dropdown-item" href="#">Devolucion</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Ver Muebles</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesVenta">Ver Muebles</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

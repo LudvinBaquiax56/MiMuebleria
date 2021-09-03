@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Fabrica;
+package Ventas;
 
 import Modelos.BaseDeDatos.MuebleBD;
 import Modelos.Objetos.Mueble;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author baquiax
  */
-@WebServlet(name = "VerMuebles", urlPatterns = {"/VerMuebles"})
-public class VerMuebles extends HttpServlet {
+@WebServlet(name = "VerMueblesVenta", urlPatterns = {"/VerMueblesVenta"})
+public class VerMueblesVenta extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,14 +34,14 @@ public class VerMuebles extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MuebleBD mubleBD = new MuebleBD();
-        List<Mueble> muebles = mubleBD.getMuebles();
+        List<Mueble> muebles = mubleBD.getMueblesVenta();
         if (muebles.isEmpty()) {
             request.getSession().setAttribute("hayMuebles", false);
         } else {
             request.getSession().setAttribute("hayMuebles", true);
         }
         request.getSession().setAttribute("muebles", muebles);
-        response.sendRedirect("JSP/Fabrica/listadoMuebles.jsp");
+        response.sendRedirect("JSP/Ventas/listadoMueblesVenta.jsp");
     }
 
     /**
@@ -56,15 +56,5 @@ public class VerMuebles extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

@@ -72,7 +72,7 @@ public class ModeloMuebleBD {
     private ModeloMueble instanciarDeResultSet(ResultSet resultado) throws SQLException {
         return new ModeloMueble(
                 resultado.getString("nombre"),
-                Double.parseDouble(resultado.getString("NIT"))
+                resultado.getDouble("precio")
         );
     }
 

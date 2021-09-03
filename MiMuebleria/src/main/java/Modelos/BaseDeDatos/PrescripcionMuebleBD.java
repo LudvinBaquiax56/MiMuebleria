@@ -45,7 +45,7 @@ public class PrescripcionMuebleBD {
      * Carga un todos los elementos de un mueble con el modelo especificado
      *
      * @param modeloMueble
-     * @return Cargador hallado
+     * @return
      */
     public List<PrescripcionMueble> getPrescripcionMueble(String modeloMueble) {
         List<PrescripcionMueble> receta = new ArrayList();
@@ -62,7 +62,7 @@ public class PrescripcionMuebleBD {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PrescripcionMuebleBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return receta;
     }
 
     /**

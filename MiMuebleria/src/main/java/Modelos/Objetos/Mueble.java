@@ -42,6 +42,7 @@ public class Mueble {
         this.fecha = fecha;
         this.vendido = false;
         this.devolucion = false;
+        this.precio = 0;
     }
 
     /**
@@ -59,6 +60,7 @@ public class Mueble {
         this.ensamblador = ensamblador;
         this.vendido = false;
         this.devolucion = false;
+        this.precio = 0;
     }
 
     /**
@@ -81,19 +83,31 @@ public class Mueble {
         this.ensamblador = ensamblador;
         this.vendido = vendido;
         this.devolucion = devolucion;
+        this.precio = 0;
     }
 
     /**
-     * Constructor para la venta
+     * Constructor con todos los parametros de un mueble
      *
      * @param id
      * @param modeloMueble
+     * @param costo
+     * @param fecha
+     * @param ensamblador
      * @param precio
+     * @param vendido
+     * @param devolucion
      */
-    public Mueble(int id, String modeloMueble, double precio) {
+    public Mueble(int id, String modeloMueble, double costo, LocalDate fecha,
+            String ensamblador, double precio, boolean vendido, boolean devolucion) {
         this.id = id;
         this.modeloMueble = modeloMueble;
+        this.costo = costo;
+        this.fecha = fecha;
+        this.ensamblador = ensamblador;
         this.precio = precio;
+        this.vendido = vendido;
+        this.devolucion = devolucion;
     }
 
     /**

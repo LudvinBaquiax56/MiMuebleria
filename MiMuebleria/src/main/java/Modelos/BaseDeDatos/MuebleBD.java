@@ -68,7 +68,7 @@ public class MuebleBD {
     public List<Mueble> getMueblesVenta() {
         List<Mueble> muebles = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT n.id, m.nombre, m. precio FROM modelo_mueble m JOIN mueble n ON m.nombre=n.modelo_mueble WHERE n.vendido = false;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT n.id, m.nombre, n.costo, n.fecha, n.ensamblador, m.precio, n.vendido, n.devolucion FROM modelo_mueble m JOIN mueble n ON m.nombre=n.modelo_mueble WHERE n.vendido = false;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 muebles.add(instanciarDeResultSetVenta(resultado));
@@ -77,6 +77,121 @@ public class MuebleBD {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MuebleBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return muebles;
+    }
+
+    /**
+     * Total de muebles creados
+     *
+     * @return
+     */
+    public List<String> getMueblesDetalle() {
+        List<String> muebles = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT count(n.id) AS cantidad, m.nombre FROM modelo_mueble m JOIN "
+                    + "mueble n ON m.nombre=n.modelo_mueble GROUP BY m.nombre;");
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                muebles.add(resultadoConsultaDetalle(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return muebles;
+    }
+
+    /**
+     * Muebles detalle Ascendente
+     *
+     * @return
+     */
+    public List<String> getMueblesDetalleAscendente() {
+        List<String> muebles = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT count(n.id) AS cantidad, m.nombre FROM modelo_mueble m JOIN "
+                    + "mueble n ON m.nombre=n.modelo_mueble GROUP BY m.nombre ORDER BY m.nombre ASC;");
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                muebles.add(resultadoConsultaDetalle(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return muebles;
+    }
+
+    /**
+     * Muebles detalle Descendente
+     *
+     * @return
+     */
+    public List<String> getMueblesDetalleDescendente() {
+        List<String> muebles = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT count(n.id) AS cantidad, m.nombre FROM modelo_mueble m JOIN "
+                    + "mueble n ON m.nombre=n.modelo_mueble GROUP BY m.nombre ORDER BY m.nombre DESC;");
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                muebles.add(resultadoConsultaDetalle(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return muebles;
+    }
+
+    /**
+     * Muebles detalle por cantidad Ascendente
+     *
+     * @return
+     */
+    public List<String> getMueblesDetalleCantidadAscendente() {
+        List<String> muebles = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT count(n.id) AS cantidad, m.nombre FROM modelo_mueble m JOIN "
+                    + "mueble n ON m.nombre=n.modelo_mueble GROUP BY m.nombre ORDER BY cantidad ASC;");
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                muebles.add(resultadoConsultaDetalle(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return muebles;
+    }
+
+    /**
+     * Muebles detalle por cantidad Descendente
+     *
+     * @return
+     */
+    public List<String> getMueblesDetalleCantidadDescendente() {
+        List<String> muebles = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "SELECT count(n.id) AS cantidad, m.nombre FROM modelo_mueble m JOIN"
+                    + " mueble n ON m.nombre=n.modelo_mueble GROUP BY m.nombre ORDER BY cantidad DESC;");
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                muebles.add(resultadoConsultaDetalle(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return muebles;
     }
@@ -95,6 +210,7 @@ public class MuebleBD {
                 resultado.getDouble("costo"),
                 Utilidades.DateToLocalDate(resultado.getDate("fecha")),
                 resultado.getString("ensamblador"),
+                resultado.getDouble("precio_venta"),
                 resultado.getBoolean("vendido"),
                 resultado.getBoolean("devolucion")
         );
@@ -110,7 +226,20 @@ public class MuebleBD {
     private Mueble instanciarDeResultSetVenta(ResultSet resultado) throws SQLException {
         return new Mueble(resultado.getInt("id"),
                 resultado.getString("nombre"),
-                resultado.getDouble("precio"));
+                resultado.getDouble("costo"),
+                Utilidades.DateToLocalDate(resultado.getDate("fecha")),
+                resultado.getString("ensamblador"),
+                resultado.getDouble("precio"),
+                resultado.getBoolean("vendido"),
+                resultado.getBoolean("devolucion"));
+    }
+
+    private String resultadoConsultaDetalle(ResultSet resultado) throws SQLException {
+        String result = "<tr> <td>";
+        result = result + resultado.getString(1) + "</td><td>";
+        result = result + resultado.getString(2) + "</td>";
+        result = result + "</tr>";
+        return result;
     }
 
 }

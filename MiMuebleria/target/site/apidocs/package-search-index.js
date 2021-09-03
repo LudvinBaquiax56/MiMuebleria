@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"Administracion"},{"l":"All Packages","url":"allpackages-index.html"},{"l":"CargaDeDatos"},{"l":"Fabrica"},{"l":"LectorDeDatos"},{"l":"LectorDeDatos.Controladores"},{"l":"Modelos.BaseDeDatos"},{"l":"Modelos.Objetos"},{"l":"Modelos.Objetos.Entidades"},{"l":"Sesiones"},{"l":"Ventas"}]

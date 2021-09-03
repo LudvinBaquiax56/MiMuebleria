@@ -44,9 +44,22 @@
                         Mueble
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ensamblar Mueble</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/EnsamblarMuebles">Ensamblar Mueble</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMuebles">Muebles Creados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mueble Detalles
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesDetalle?accion=detalle">Muebles Detalle</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesDetalle?accion=nombreAscendente">Muebles Ascendente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesDetalle?accion=nombreDescendente">Muebles Descendente</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesDetalle?accion=cantidadAscendente">Muebles por cantidad Ascendente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerMueblesDetalle?accion=cantidadDescendente">Muebles por cantidad Descendente</a></li>
                     </ul>
                 </li>
             </ul>
