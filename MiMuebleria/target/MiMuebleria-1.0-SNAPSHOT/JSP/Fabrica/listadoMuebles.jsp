@@ -27,7 +27,8 @@
                                 <th scope="col">Costo</th>
                                 <th scope="col">Fecha Ensamble</th>
                                 <th scope="col">Ensamblador</th>
-                                <th scope="col">Estado</th>
+                                <th scope="col">Vendido</th>
+                                <th scope="col">Devuelto</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,12 @@
                                     <td>${mueble.costo}</td>
                                     <td>${mueble.fecha}</td>
                                     <td>${mueble.ensamblador}</td>
+                                    <c:if test="${mueble.vendido == false}">
+                                        <td>En venta</td>
+                                    </c:if>
+                                    <c:if test="${mueble.vendido == true}">
+                                        <td>Vendido</td>
+                                    </c:if>
                                     <c:if test="${mueble.devolucion == false}">
                                         <td>En venta</td>
                                     </c:if>

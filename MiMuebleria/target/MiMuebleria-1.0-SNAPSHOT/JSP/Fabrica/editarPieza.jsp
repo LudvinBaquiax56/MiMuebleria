@@ -3,6 +3,8 @@
     Created on : 1/09/2021, 20:27:13
     Author     : baquiax
 --%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Modelos.Objetos.Pieza"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

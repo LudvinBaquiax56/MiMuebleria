@@ -59,13 +59,15 @@ public class ClienteBD {
      */
     public Cliente getCliente(int NIT) {
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM cargador WHERE NIT=?;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM cliente WHERE NIT=?;");
             statement.setInt(1, NIT);
             ResultSet resultado = statement.executeQuery();
             if (resultado.next()) {
                 return instanciarDeResultSet(resultado);
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -79,12 +81,14 @@ public class ClienteBD {
     public List<Cliente> getClientes() {
         List<Cliente> clientes = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.conexion.prepareStatement("SELECT * FROM cliente;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM cliente;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 clientes.add(instanciarDeResultSet(resultado));
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return clientes;

@@ -3,7 +3,7 @@
     Created on : 30/08/2021, 23:37:57
     Author     : baquiax
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

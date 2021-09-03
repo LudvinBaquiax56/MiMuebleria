@@ -69,6 +69,7 @@ public class ControladorEnsamblePieza {
                         + recetas.get(i).getTipoPieza() + ", " + recetas.get(i).getCantidad();
                 errores.add(error);
                 recetas.remove(i);
+                i = 0;
             }
         }
 

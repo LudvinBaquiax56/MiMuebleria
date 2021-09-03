@@ -8,7 +8,6 @@ package Administracion;
 import Modelos.BaseDeDatos.UsuarioBD;
 import Modelos.Objetos.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CrearUsuario", urlPatterns = {"/CrearUsuario"})
 public class CrearUsuario extends HttpServlet {
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

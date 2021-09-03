@@ -20,6 +20,19 @@ import java.util.logging.Logger;
  */
 public class PiezaBD {
 
+    private static final String SQL_CREAR_PIEZA = "INSERT INTO pieza (tipo_pieza, costo, disponible) VALUES (?,?,?);";
+    private static final String SQL_ALL_PIEZAS = "SELECT * FROM pieza;";
+    private static final String SQL_PIEZA_BY_ID = "SELECT * FROM pieza WHERE id = ?";
+    private static final String SQL_PIEZA_DISPONIBLES = "SELECT * FROM pieza WHERE disponible = true;";
+    private static final String SQL_PIEZAS_POR_TIPO = "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre;";
+    private static final String SQL_PIEZAS_POR_TIPO_DESC = "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre ORDER BY t.nombre DESC;";
+    private static final String SQL_PIEZAS_POR_TIPO_ASC = "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre ORDER BY t.nombre ASC;";
+    private static final String SQL_PIEZAS_POR_TIPO_CANTIDAD_DESC = "SELECT count(p.id)  AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre ORDER BY cantidad DESC;";
+    private static final String SQL_PIEZAS_POR_TIPO_CANTIDAD_ASC = "SELECT count(p.id)  AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre ORDER BY cantidad ASC;";
+    private static final String SQL_UPDATE = "UPDATE pieza SET tipo_pieza=?, costo=?, disponible=? WHERE id=?;";
+    private static final String SQL_DELETE = "DELETE FROM pieza WHERE id = ?;";
+    private static final String SQL_PIEZAS_AGOTADAS = "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre HAVING cantidad < 5;";
+
     /**
      * Crea una pieza en la base de datos
      *
@@ -28,7 +41,7 @@ public class PiezaBD {
     public void crearPieza(Pieza pieza) {
         try {
 
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO pieza (tipo_pieza, costo, disponible) VALUES (?,?,?);");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_CREAR_PIEZA);
             statement.setString(1, pieza.getTipoPieza());
             statement.setDouble(2, pieza.getCosto());
             statement.setBoolean(3, pieza.isDisponible());
@@ -48,7 +61,7 @@ public class PiezaBD {
     public List<Pieza> getPiezas() {
         List<Pieza> piezas = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM pieza;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_ALL_PIEZAS);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(instanciarDeResultSet(resultado));
@@ -69,7 +82,7 @@ public class PiezaBD {
     public Pieza getPieza(int id) {
         Pieza pieza = null;
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM pieza WHERE id = ?");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_PIEZA_BY_ID);
             statement.setInt(1, id);
             ResultSet resultado = statement.executeQuery();
             if (resultado.next()) {
@@ -92,7 +105,7 @@ public class PiezaBD {
     public List<Pieza> getPiezasDisponibles() {
         List<Pieza> piezas = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM pieza WHERE disponible = true;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_PIEZA_DISPONIBLES);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(instanciarDeResultSet(resultado));
@@ -114,8 +127,7 @@ public class PiezaBD {
         List<String> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t "
-                    + "ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre;");
+                    SQL_PIEZAS_POR_TIPO);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(resultadoConsultaTipo(resultado));
@@ -138,9 +150,7 @@ public class PiezaBD {
         List<String> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t "
-                    + "ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre"
-                    + " ORDER BY t.nombre DESC;");
+                    SQL_PIEZAS_POR_TIPO_DESC);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(resultadoConsultaTipo(resultado));
@@ -162,9 +172,7 @@ public class PiezaBD {
         List<String> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "SELECT count(p.id) AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t "
-                    + "ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY t.nombre"
-                    + " ORDER BY t.nombre ASC;");
+                    SQL_PIEZAS_POR_TIPO_ASC);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(resultadoConsultaTipo(resultado));
@@ -187,9 +195,7 @@ public class PiezaBD {
         List<String> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "SELECT count(p.id)  AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t "
-                    + "ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY "
-                    + "t.nombre ORDER BY cantidad DESC;");
+                    SQL_PIEZAS_POR_TIPO_CANTIDAD_DESC);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(resultadoConsultaTipo(resultado));
@@ -212,9 +218,29 @@ public class PiezaBD {
         List<String> piezas = new ArrayList();
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "SELECT count(p.id)  AS cantidad, t.nombre FROM pieza p JOIN tipo_pieza t "
-                    + "ON p.tipo_pieza=t.nombre WHERE p.disponible = true GROUP BY "
-                    + "t.nombre ORDER BY cantidad ASC;");
+                    SQL_PIEZAS_POR_TIPO_CANTIDAD_ASC);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                piezas.add(resultadoConsultaTipo(resultado));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return piezas;
+    }
+
+    /**
+     * Lista todas las piezas que estan apunto de agotarse
+     *
+     * @return Cargadores
+     */
+    public List<String> getPiezasAgotadas() {
+        List<String> piezas = new ArrayList();
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    SQL_PIEZAS_AGOTADAS);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 piezas.add(resultadoConsultaTipo(resultado));
@@ -235,7 +261,7 @@ public class PiezaBD {
     public void modificarPieza(Pieza pieza) {
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
-                    "UPDATE pieza SET tipo_pieza=?, costo=?, disponible=? WHERE id=?;");
+                    SQL_UPDATE);
             statement.setString(1, pieza.getTipoPieza());
             statement.setDouble(2, pieza.getCosto());
             statement.setBoolean(3, pieza.isDisponible());
@@ -255,7 +281,7 @@ public class PiezaBD {
      */
     public void eliminarPieza(int id) {
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("DELETE FROM pieza WHERE id = ?;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(SQL_DELETE);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException ex) {

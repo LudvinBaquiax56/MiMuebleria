@@ -7,6 +7,7 @@ CargaDeDatos/ValidarCargaDeDatos.class
 Modelos/BaseDeDatos/ModeloMuebleBD.class
 Modelos/BaseDeDatos/MueblesFacturaBD.class
 Modelos/BaseDeDatos/Conexion.class
+Ventas/CrearCliente.class
 Modelos/Objetos/PrescripcionMueble.class
 Modelos/Objetos/TipoPieza.class
 Modelos/Objetos/ModeloMueble.class
@@ -22,7 +23,9 @@ Sesiones/CerrarSesion.class
 LectorDeDatos/Controladores/ControladorUsuarios.class
 Modelos/BaseDeDatos/MuebleBD.class
 Modelos/Objetos/Entidades/Entidad.class
+Fabrica/CrearPieza.class
 Modelos/Objetos/Entidades/EntidadCosto.class
+Ventas/VerClientes.class
 LectorDeDatos/UtilidadesLector.class
 Modelos/Objetos/Mueble.class
 Fabrica/VerPiezasPorTipo.class

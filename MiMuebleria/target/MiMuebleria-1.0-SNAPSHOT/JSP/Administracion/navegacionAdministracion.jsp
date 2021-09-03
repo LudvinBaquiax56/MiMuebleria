@@ -37,7 +37,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerUsuarios">Ver Usuarios</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="crearUsuario.jsp">Creacion de Usuario</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/JSP/Administracion/crearUsuario.jsp">Creacion de Usuario</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

@@ -18,45 +18,63 @@
         <body>
         <% if ((int) request.getSession().getAttribute("tipo") == 1) {%>
         <jsp:include page="navegacionFabrica.jsp"></jsp:include>
-            <div class="container col-md-8">
-                <center>            
-                    <h1>Piezas</h1>
-                <%List<Pieza> piezas = (List<Pieza>) request.getSession().getAttribute("piezas");%>
-                <c:if test="${hayPiezas != null && hayPiezas == true}">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Pieza</th>
-                                <th scope="col">Costo</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${piezas}" var="pieza">
+            <div class="container">
+                <h1>Piezas</h1>
+            <%List<Pieza> piezas = (List<Pieza>) request.getSession().getAttribute("piezas");%>
+            <c:if test="${hayPiezas != null && hayPiezas == true}">
+                <div class="row">
+                    <div class="col-md-8">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td scope="row">${pieza.id}</td>
-                                    <td>${pieza.tipoPieza}</td>
-                                    <td><fmt:formatNumber value="${pieza.costo}" type="currency"/></td>
-                                    
-                                    <td><a href="${pageContext.request.contextPath}/ModificarPieza?accion=modificar&id=${pieza.id}" 
-                                           class="btn btn-lg btn-block btn-outline-info">
-                                            Editar
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/ModificarPieza?accion=eliminar&id=${pieza.id}" 
-                                           class="btn btn-lg btn-block btn-outline-warning">
-                                            Eliminar
-                                        </a>
-                                    </td>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Pieza</th>
+                                    <th scope="col">Costo</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Eliminar</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </c:if>
-            </center>    
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${piezas}" var="pieza">
+                                    <tr>
+                                        <td scope="row">${pieza.id}</td>
+                                        <td>${pieza.tipoPieza}</td>
+                                        <td><fmt:formatNumber value="${pieza.costo}" type="currency"/></td>
+
+                                        <td><a href="${pageContext.request.contextPath}/ModificarPieza?accion=modificar&id=${pieza.id}" 
+                                               class="btn btn-lg btn-block btn-outline-info">
+                                                Editar
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="${pageContext.request.contextPath}/ModificarPieza?accion=eliminar&id=${pieza.id}" 
+                                               class="btn btn-lg btn-block btn-outline-warning">
+                                                Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <h1>Piezas por Agotarse</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Pieza</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${piezasAgotadas}" var="pieza">
+                                    ${pieza}
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </c:if>  
         </div>
         <jsp:include page="../HeadesrAndFooters/footerGeneral.jsp"></jsp:include>
         <% } else if ((int) request.getSession().getAttribute("tipo") == 2) { %>

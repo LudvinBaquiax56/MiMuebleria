@@ -17,8 +17,10 @@ public class Mueble {
     private double costo;
     private LocalDate fecha;
     private String ensamblador;
+    private boolean vendido;
     private boolean devolucion;
     private int id;
+    private double precio;
 
     /**
      * Constructor por defecto
@@ -38,6 +40,8 @@ public class Mueble {
         this.modeloMueble = modeloMueble;
         this.ensamblador = ensamblador;
         this.fecha = fecha;
+        this.vendido = false;
+        this.devolucion = false;
     }
 
     /**
@@ -53,6 +57,7 @@ public class Mueble {
         this.costo = costo;
         this.fecha = fecha;
         this.ensamblador = ensamblador;
+        this.vendido = false;
         this.devolucion = false;
     }
 
@@ -64,16 +69,31 @@ public class Mueble {
      * @param costo
      * @param fecha
      * @param ensamblador
+     * @param vendido
      * @param devolucion
      */
     public Mueble(int id, String modeloMueble, double costo, LocalDate fecha,
-            String ensamblador, boolean devolucion) {
+            String ensamblador, boolean vendido, boolean devolucion) {
         this.id = id;
         this.modeloMueble = modeloMueble;
         this.costo = costo;
         this.fecha = fecha;
         this.ensamblador = ensamblador;
+        this.vendido = vendido;
         this.devolucion = devolucion;
+    }
+
+    /**
+     * Constructor para la venta
+     *
+     * @param id
+     * @param modeloMueble
+     * @param precio
+     */
+    public Mueble(int id, String modeloMueble, double precio) {
+        this.id = id;
+        this.modeloMueble = modeloMueble;
+        this.precio = precio;
     }
 
     /**
@@ -158,6 +178,34 @@ public class Mueble {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the vendido
+     */
+    public boolean isVendido() {
+        return vendido;
+    }
+
+    /**
+     * @param vendido the vendido to set
+     */
+    public void setVendido(boolean vendido) {
+        this.vendido = vendido;
+    }
+
+    /**
+     * @return the precio
+     */
+    public double getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
 }

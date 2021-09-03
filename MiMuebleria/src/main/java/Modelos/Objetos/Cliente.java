@@ -35,6 +35,8 @@ public class Cliente extends Entidad {
         super(nombre);
         this.NIT = NIT;
         this.direccion = direccion;
+        this.municipio = "";
+        this.departamento = "";
     }
 
     /**

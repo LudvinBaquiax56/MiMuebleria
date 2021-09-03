@@ -23,8 +23,14 @@
                         <li><a class="dropdown-item" href="#">Ver Muebles</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Registrar Cliente</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/JSP/Ventas/registrarCliente.jsp">Registrar cliente</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerClientes">Ver Clientes</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -37,12 +37,14 @@ public class VerPiezas extends HttpServlet {
             throws ServletException, IOException {
         PiezaBD piezaBD = new PiezaBD();
         List<Pieza> piezas = piezaBD.getPiezasDisponibles();
+        List<String> piezasAgotadas = piezaBD.getPiezasAgotadas();
         if (piezas.isEmpty()) {
             request.getSession().setAttribute("hayPiezas", false);
         } else {
             request.getSession().setAttribute("hayPiezas", true);
         }
         request.getSession().setAttribute("piezas", piezas);
+        request.getSession().setAttribute("piezasAgotadas", piezasAgotadas);
         response.sendRedirect("JSP/Fabrica/listadoPiezas.jsp");
     }
 

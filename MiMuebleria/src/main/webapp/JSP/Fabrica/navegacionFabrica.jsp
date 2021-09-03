@@ -17,7 +17,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/VerPiezas">Ver Piezas</a></li>
-                        <li><a class="dropdown-item" href="#">Crear Piezas</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/JSP/Fabrica/crearPieza.jsp">Crear Piezas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
