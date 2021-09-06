@@ -6,7 +6,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="inicioAdministracion.jsp"><i class="fab fa-medium-m" style="color: brown;"></i> Mi Muebleria</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/JSP/Administracion/inicioAdministracion.jsp"><i class="fab fa-medium-m" style="color: brown;"></i> Mi Muebleria</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,10 +17,10 @@
                         Reportes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Reporte de Ventas Mueble</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Reporte1">Reporte de Ventas Mueble</a></li>
                         <li><a class="dropdown-item" href="#">Reporte de Devoluciones</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Ganancias</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Reporte2">Ganancias</a></li>
                         <li><a class="dropdown-item" href="#">Usuario con mas Ventas</a></li>
                         <li><a class="dropdown-item" href="#">Usuario con menos Ventas</a></li>
                         <li><hr class="dropdown-divider"></li>

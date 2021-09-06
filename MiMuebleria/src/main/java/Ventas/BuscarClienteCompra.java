@@ -96,6 +96,12 @@ public class BuscarClienteCompra extends HttpServlet {
         }
     }
 
+    /**
+     * Obtiene los muebles comprados
+     *
+     * @param muebles
+     * @return
+     */
     private List<Mueble> obtenerMueblescomprados(List<Mueble> muebles) {
         List<Mueble> mueblesComprados = new ArrayList<>();
         for (Mueble mueble : muebles) {

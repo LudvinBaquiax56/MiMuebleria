@@ -74,7 +74,6 @@ public class AgregarMueble extends HttpServlet {
                 mueble.setVendido(!mueble.isVendido());
             }
         }
-
     }
 
 }

@@ -14,7 +14,6 @@ import Modelos.Objetos.Factura;
 import Modelos.Objetos.Mueble;
 import Modelos.Objetos.MueblesFactura;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,9 +5,11 @@ Modelos/BaseDeDatos/ModeloMuebleBD.class
 Modelos/Objetos/PrescripcionMueble.class
 Modelos/Objetos/TipoPieza.class
 Modelos/Objetos/ModeloMueble.class
+Reportes/DescargarReporte2.class
 LectorDeDatos/Instruccion.class
 Modelos/BaseDeDatos/PiezaBD.class
 Administracion/VerUsuarios.class
+Reportes/Reporte1.class
 Modelos/BaseDeDatos/PrescripcionMuebleBD.class
 Fabrica/CrearPieza.class
 Ventas/VerClientes.class
@@ -21,6 +23,7 @@ Fabrica/EnsamblarMuebles.class
 LectorDeDatos/Controladores/ControladorEnsamblarMueble.class
 Modelos/BaseDeDatos/UsuarioBD.class
 Ventas/BuscarClienteCompra.class
+Reportes/ReporteBD.class
 Modelos/BaseDeDatos/Utilidades.class
 Modelos/Objetos/Usuario.class
 Modelos/BaseDeDatos/TipoPiezaBD.class
@@ -30,6 +33,7 @@ CargaDeDatos/ValidarCargaDeDatos.class
 Modelos/BaseDeDatos/MueblesFacturaBD.class
 Modelos/BaseDeDatos/Conexion.class
 Ventas/CrearCliente.class
+Reportes/DescargarReporte1.class
 CargaDeDatos/CargaDeDatos.class
 Modelos/Objetos/Factura.class
 Fabrica/VerPiezas.class
@@ -40,6 +44,7 @@ Modelos/BaseDeDatos/MuebleBD.class
 Modelos/Objetos/Entidades/Entidad.class
 Ventas/CrearClienteVenta.class
 Modelos/Objetos/Entidades/EntidadCosto.class
+Reportes/Reporte2.class
 Modelos/Objetos/Mueble.class
 Fabrica/VerMueblesDetalle.class
 Modelos/BaseDeDatos/ClienteBD.class

@@ -90,7 +90,7 @@ public class UsuarioBD {
      *
      * @param usuario
      */
-    public void modificarPieza(Usuario usuario) {
+    public void modificarUsuario(Usuario usuario) {
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
                     "UPDATE usuario SET password=?, tipo=?, estado=? WHERE nombre=?;");

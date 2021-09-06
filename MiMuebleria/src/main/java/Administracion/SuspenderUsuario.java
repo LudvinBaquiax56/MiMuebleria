@@ -8,7 +8,6 @@ package Administracion;
 import Modelos.BaseDeDatos.UsuarioBD;
 import Modelos.Objetos.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +38,7 @@ public class SuspenderUsuario extends HttpServlet {
         Usuario usuario = usuarioBD.getUsuario(nombre);
         if (usuario != null) {
             usuario.setEstado(false);
-            usuarioBD.modificarPieza(usuario);
+            usuarioBD.modificarUsuario(usuario);
             response.sendRedirect(request.getContextPath() + "/VerUsuarios");
         } else {
             response.sendRedirect("JSP/Administracion/inicioAdministracion.jsp");
