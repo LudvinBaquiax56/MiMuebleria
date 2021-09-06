@@ -21,6 +21,7 @@ public class Mueble {
     private boolean devolucion;
     private int id;
     private double precio;
+    private LocalDate fechaDevolucion;
 
     /**
      * Constructor por defecto
@@ -43,6 +44,7 @@ public class Mueble {
         this.vendido = false;
         this.devolucion = false;
         this.precio = 0;
+        this.fechaDevolucion = LocalDate.now();
     }
 
     /**
@@ -61,6 +63,7 @@ public class Mueble {
         this.vendido = false;
         this.devolucion = false;
         this.precio = 0;
+        this.fechaDevolucion = LocalDate.now();
     }
 
     /**
@@ -108,6 +111,32 @@ public class Mueble {
         this.precio = precio;
         this.vendido = vendido;
         this.devolucion = devolucion;
+    }
+
+    /**
+     * Constructor con todos los parametros
+     *
+     * @param modeloMueble
+     * @param costo
+     * @param fecha
+     * @param ensamblador
+     * @param vendido
+     * @param devolucion
+     * @param id
+     * @param precio
+     * @param fechaDevolucion
+     */
+    public Mueble(int id, String modeloMueble, double costo, LocalDate fecha, String ensamblador,
+            double precio, boolean vendido, boolean devolucion, LocalDate fechaDevolucion) {
+        this.modeloMueble = modeloMueble;
+        this.costo = costo;
+        this.fecha = fecha;
+        this.ensamblador = ensamblador;
+        this.vendido = vendido;
+        this.devolucion = devolucion;
+        this.id = id;
+        this.precio = precio;
+        this.fechaDevolucion = fechaDevolucion;
     }
 
     /**
@@ -220,6 +249,20 @@ public class Mueble {
      */
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    /**
+     * @return the fechaDevolucion
+     */
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    /**
+     * @param fechaDevolucion the fechaDevolucion to set
+     */
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 
 }

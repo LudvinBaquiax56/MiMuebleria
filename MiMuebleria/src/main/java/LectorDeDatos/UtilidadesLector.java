@@ -78,7 +78,7 @@ public class UtilidadesLector {
     }
 
     /**
-     * Validar el tipo de usuario correcto
+     * Validar el tipo de usuario correcto 
      *
      * @param tipo
      * @return

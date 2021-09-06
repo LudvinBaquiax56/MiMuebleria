@@ -80,9 +80,6 @@ public class ControladorEnsamblarMueble {
                         List<Pieza> piezas = controladorPiezas.piezasMueble(recetaMueble.get(contador).getTipoPieza(),
                                 recetaMueble.get(contador).getCantidad());
                         if (piezas.isEmpty()) {
-                            String error = muebles.get(i).getModeloMueble() + ", "
-                                    + muebles.get(i).getEnsamblador() + ", " + muebles.get(i).getFecha();
-                            errores.add(error);
                             posible = false;
                         } else {
                             agregarPiezas(piezasMueble, piezas);
@@ -120,7 +117,7 @@ public class ControladorEnsamblarMueble {
     private boolean validarMuebleYUsuario(Mueble mueble, ControladorModeloMuebles controladorModelosMuebles,
             ControladorUsuarios controladorUsuarios) {
         return (controladorUsuarios.existeUsuario(mueble.getEnsamblador())
-                && controladorUsuarios.tipoUsuario(mueble.getEnsamblador()) == 2
+                && controladorUsuarios.tipoUsuario(mueble.getEnsamblador()) == 1
                 && controladorModelosMuebles.existeMueble(mueble.getModeloMueble()));
     }
 

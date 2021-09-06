@@ -160,7 +160,7 @@ public class ControladorPiezas {
         List<Pieza> piezasSolicitadas = new ArrayList<>();
         int contador = 0;
         for (int i = 0; i < this.piezas.size() && contador < cantidad; i++) {
-            if (this.piezas.get(i).getTipoPieza().equalsIgnoreCase(tipoPieza)) {
+            if (this.piezas.get(i).getTipoPieza().equalsIgnoreCase(tipoPieza) && this.piezas.get(i).isDisponible()) {
                 piezasSolicitadas.add(this.piezas.get(i));
                 contador++;
             }

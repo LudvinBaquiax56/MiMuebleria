@@ -18,8 +18,8 @@ public class Conexion {
     public static Connection conexion;
 
     private static final String NOMBRE_BASE_DE_DATOS = "mi_muebleria";
-    private static final String USER = "root2";
-    private static final String PASSWORD = "root1234";
+    private static final String USER = "admin";
+    private static final String PASSWORD = "Administracion.1234";
 
     /**
      * Procedimiento estatico para cargar la conexion con la base de datos

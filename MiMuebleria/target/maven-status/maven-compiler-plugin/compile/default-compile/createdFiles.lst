@@ -11,13 +11,16 @@ Administracion/VerUsuarios.class
 Modelos/BaseDeDatos/PrescripcionMuebleBD.class
 Fabrica/CrearPieza.class
 Ventas/VerClientes.class
+Ventas/AgregarMueble.class
 LectorDeDatos/UtilidadesLector.class
 Fabrica/VerPiezasPorTipo.class
 LectorDeDatos/LectorDeDatos$1.class
+Ventas/Venta.class
 Modelos/Objetos/Entidades/EntidadPrecio.class
 Fabrica/EnsamblarMuebles.class
 LectorDeDatos/Controladores/ControladorEnsamblarMueble.class
 Modelos/BaseDeDatos/UsuarioBD.class
+Ventas/BuscarClienteCompra.class
 Modelos/BaseDeDatos/Utilidades.class
 Modelos/Objetos/Usuario.class
 Modelos/BaseDeDatos/TipoPiezaBD.class
@@ -35,6 +38,7 @@ Sesiones/CerrarSesion.class
 LectorDeDatos/Controladores/ControladorUsuarios.class
 Modelos/BaseDeDatos/MuebleBD.class
 Modelos/Objetos/Entidades/Entidad.class
+Ventas/CrearClienteVenta.class
 Modelos/Objetos/Entidades/EntidadCosto.class
 Modelos/Objetos/Mueble.class
 Fabrica/VerMueblesDetalle.class

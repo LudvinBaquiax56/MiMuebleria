@@ -17,7 +17,7 @@
             <div class="container">
                 <center>            
                     <h1>Muebles en Venta</h1>
-                <%List<Mueble> piezas = (List<Mueble>) request.getAttribute("muebles");%>
+                <%List<Mueble> muebles = (List<Mueble>) request.getAttribute("muebles");%>
                 <c:if test="${hayMuebles != null && hayMuebles == true}">
                     <table class="table">
                         <thead>

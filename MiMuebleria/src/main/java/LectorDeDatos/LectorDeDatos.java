@@ -48,13 +48,13 @@ public class LectorDeDatos {
         controladorPiezas.insertarTipoPiezas();
 
         controladorModelosMuebles.insertarModelosMuebles();
-        
+
         this.erroresLogicosRecetas = controladorRecetas.validarEnsambles(
                 controladorPiezas, controladorModelosMuebles);
 
         this.erroresLogicosEnsamebles = controladorMuebles.ensambraMuebles(
                 controladorRecetas, controladorModelosMuebles, controladorUsuarios, controladorPiezas);
-
+        System.out.println(controladorMuebles.getMuebles().size());
         controladorPiezas.insertarPiezas();
     }
 

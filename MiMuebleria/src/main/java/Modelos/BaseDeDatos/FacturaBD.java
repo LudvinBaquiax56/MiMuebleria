@@ -41,6 +41,28 @@ public class FacturaBD {
     }
 
     /**
+     * Retorna el id de la ultima factura
+     *
+     * @return
+     */
+    public int idUltimaFactura() {
+        int id = 0;
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT MAX(no_factura) AS no_factura FROM factura;");
+            ResultSet resultado = statement.executeQuery();
+            if (resultado.next()) {
+                return resultado.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FacturaBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+
+    /**
      * Retorna una Factura mediante un ResultSet
      *
      * @param resultado
@@ -57,5 +79,4 @@ public class FacturaBD {
         );
     }
 
-    
 }

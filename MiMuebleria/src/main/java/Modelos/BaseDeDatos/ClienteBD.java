@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -57,10 +55,10 @@ public class ClienteBD {
      * @param NIT
      * @return Cargador hallado
      */
-    public Cliente getCliente(int NIT) {
+    public Cliente getCliente(String NIT) {
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT * FROM cliente WHERE NIT=?;");
-            statement.setInt(1, NIT);
+            statement.setString(1, NIT);
             ResultSet resultado = statement.executeQuery();
             if (resultado.next()) {
                 return instanciarDeResultSet(resultado);

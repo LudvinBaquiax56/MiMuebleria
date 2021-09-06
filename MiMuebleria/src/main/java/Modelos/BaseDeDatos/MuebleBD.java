@@ -28,19 +28,47 @@ public class MuebleBD {
     public void crearMueble(Mueble mueble) {
         try {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("INSERT INTO mueble "
-                    + "(modelo_mueble, costo, fecha, ensamblador, vendido, devolucion) VALUES (?,?,?,?,?,?)");
+                    + "(modelo_mueble, costo, fecha, ensamblador, precio_venta, vendido, devolucion, fecha_devolucion) VALUES (?,?,?,?,?,?,?,?);");
             statement.setString(1, mueble.getModeloMueble());
-            statement.setString(2, String.valueOf(mueble.getCosto()));
+            statement.setDouble(2, mueble.getCosto());
             statement.setDate(3, Utilidades.LocalDateToDate(mueble.getFecha()));
             statement.setString(4, mueble.getEnsamblador());
-            statement.setBoolean(5, mueble.isVendido());
-            statement.setBoolean(6, mueble.isDevolucion());
+            statement.setDouble(5, mueble.getPrecio());
+            statement.setBoolean(6, mueble.isVendido());
+            statement.setBoolean(7, mueble.isDevolucion());
+            statement.setDate(8, Utilidades.LocalDateToDate(mueble.getFechaDevolucion()));
             statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MuebleBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Modifica los mubles
+     *
+     * @param mueble
+     */
+    public void modificarMueble(Mueble mueble) {
+        try {
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
+                    "UPDATE mueble SET modelo_mueble=?, costo=?, fecha=?, ensamblador=?, precio_venta=?, vendido=?, devolucion=?, fecha_devolucion=? WHERE id=?;");
+            statement.setString(1, mueble.getModeloMueble());
+            statement.setDouble(2, mueble.getCosto());
+            statement.setDate(3, Utilidades.LocalDateToDate(mueble.getFecha()));
+            statement.setString(4, mueble.getEnsamblador());
+            statement.setDouble(5, mueble.getPrecio());
+            statement.setBoolean(6, mueble.isVendido());
+            statement.setBoolean(7, mueble.isDevolucion());
+            statement.setDate(8, Utilidades.LocalDateToDate(mueble.getFechaDevolucion()));
+            statement.setInt(9, mueble.getId());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PiezaBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,10 +93,15 @@ public class MuebleBD {
         return muebles;
     }
 
+    /**
+     * Obtiene los muebles en venta
+     *
+     * @return
+     */
     public List<Mueble> getMueblesVenta() {
         List<Mueble> muebles = new ArrayList();
         try {
-            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT n.id, m.nombre, n.costo, n.fecha, n.ensamblador, m.precio, n.vendido, n.devolucion FROM modelo_mueble m JOIN mueble n ON m.nombre=n.modelo_mueble WHERE n.vendido = false;");
+            PreparedStatement statement = Conexion.obtenerConexion().prepareStatement("SELECT n.id, m.nombre, n.costo, n.fecha, n.ensamblador, m.precio, n.vendido, n.devolucion, n.fecha_devolucion FROM modelo_mueble m JOIN mueble n ON m.nombre=n.modelo_mueble WHERE n.vendido = false;");
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 muebles.add(instanciarDeResultSetVenta(resultado));
@@ -231,7 +264,8 @@ public class MuebleBD {
                 resultado.getString("ensamblador"),
                 resultado.getDouble("precio"),
                 resultado.getBoolean("vendido"),
-                resultado.getBoolean("devolucion"));
+                resultado.getBoolean("devolucion"),
+                Utilidades.DateToLocalDate(resultado.getDate("fecha_devolucion")));
     }
 
     private String resultadoConsultaDetalle(ResultSet resultado) throws SQLException {

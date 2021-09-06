@@ -30,7 +30,7 @@ public class ModeloMuebleBD {
             PreparedStatement statement = Conexion.obtenerConexion().prepareStatement(
                     "INSERT INTO modelo_mueble (nombre, precio) VALUES (?,?);");
             statement.setString(1, modeloMueble.getNombre());
-            statement.setString(2, String.valueOf(modeloMueble.getPrecio()));
+            statement.setDouble(2, modeloMueble.getPrecio());
             statement.executeUpdate();
 
         } catch (SQLException e) {
